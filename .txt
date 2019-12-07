@@ -1,0 +1,2 @@
+def diagonalDifference(arr):
+    # Write your code here
