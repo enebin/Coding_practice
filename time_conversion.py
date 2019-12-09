@@ -1,13 +1,12 @@
 def timeConversion(s):
-    x = list(s)
-    if x[-1] == "M" and x[-2] == "P":
-        if x[0] == 1 :
-            x[0] = 2
-        elif x[0] == 0:
-            x[0] = 1
-        
-
-
-    return inp
+    time = s.split(":")
+    if s[-2:] == "PM":
+        if time[0] != "12":
+            time[0] = str(int(time[0])+12)
+    else:
+        if time[0] == "12":
+            time[0] = "00"
+    ntime = ':'.join(time)
+    return str(ntime[:-2])
 
 print(timeConversion("07:05:45PM"))
