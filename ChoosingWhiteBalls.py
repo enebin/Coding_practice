@@ -1,5 +1,14 @@
 from itertools import permutations
 
+def remover(s):
+    for j in range(2):
+        for i in s:
+            print(i)
+            while s.count(i) != 1:
+                s.remove(i)
+    return 
+    
+
 def beautifulStrings(s):
     x = list(s)
     length = len(s)
@@ -7,14 +16,16 @@ def beautifulStrings(s):
     result = []
 
     for i, j in yoso:
-        for k in range(len(yoso)):
-            del x[]
+        x_cp = x[:]
+        x_cp[i] = 0
+        x_cp[j] = 0
+        
+        x_cp.remove(0), x_cp.remove(0)
 
+        result.append(x_cp)
 
+    remover(result)
+    print(result)
+    return len(result)
 
-
-    print(yoso)
-
-    return
-
-print(beautifulStrings("abca"))
+print(beautifulStrings("abcba"))
