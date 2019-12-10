@@ -3,7 +3,6 @@ from itertools import permutations
 def remover(s):
     for j in range(2):
         for i in s:
-            print(i)
             while s.count(i) != 1:
                 s.remove(i)
     return 
