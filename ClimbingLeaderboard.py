@@ -1,20 +1,15 @@
 def climbingLeaderboard(scores, alice):
-    result = []
+    unique_scores = list(reversed(sorted(set(scores))))
 
-    for i in alice:
-        low = 0
-        high = len(scores) - 1
+    i = len(alice)-1
+    j = 0
+    ans = []
 
-        while not low > high:
-            mid = (high + low) // 2
-            barometer = scores[mid]
+    while i >= 0:
+        if j >= len(unique_scores) or unique_scores[j] <= alice[i]:
+            ans.append(j+1)
+            i -= 1
+        else:
+            j += 1
 
-            if i <= scores[mid]:
-                low = mid + 1
-            elif i > scores[mid]:
-                high = mid - 1
-        
-        result.append(low)
-    return result
-
-print(climbingLeaderboard([100, 90, 90, 80 ,75 ,60], [50, 65 ,77 ,90, 102]))
+    return reversed(ans)
