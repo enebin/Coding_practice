@@ -1,10 +1,21 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+
+int* practice(int* list, int length){
+    int* newone = (int*)malloc(sizeof(int)*length);
+    for (int i=0; i<length; i++)
+        newone[i] = list[i];
+    
+    return newone;
+}
+
 
 int main()
 {
-    printf("3+3 \n");
-    printf("%d", floor(3.44f));
-
-    return 0;
+    int list[5] = {1,2,3,4,5};
+    int* result = practice(list, 5);
+    
+    for (int i=0; i<5; i++){
+        printf("%d", result[i]);
+    }
 }
