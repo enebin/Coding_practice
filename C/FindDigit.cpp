@@ -3,32 +3,31 @@
 #include <math.h>
 
 int findDigits(int n) {
-    char buf[1000000000] ={10, };
-    int len;
-    len = sprintf(buf, "%d", n);
-
-    int i = 0;
+    int i = 1;
     int count = 0;
-    while (buf[i] != 10){
-        if (n % (buf[i] - 48) == 0){
-            count += 1;
-            printf("%d", buf[i]);
-        }
-        else if (buf[i] - 48 == 0){
+
+    while (n > int(pow(10, i-1) + 0.5)){
+        int remain = (n % int(pow(10, i) + 0.5)) / int(pow(10, i-1) + 0.5);
+
+        if (!remain){
             i++;
             continue;
-       }
-        else{
-            i++;    
-            continue;  
-        }      
+        }
+
+        int result = n % remain;
+
+        if (!result){
+            count += 1;
+            i++;
+        }
     }
+
     return count;
 }
 
 
 int main()
 {
-    printf("%d", findDigits(1255));
+    printf("%d\n", findDigits(1061));
     return 0;
 }

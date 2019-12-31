@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "Prac.C": "cpp"
+        "Prac.C": "cpp",
+        "cmath": "cpp"
     }
 }
