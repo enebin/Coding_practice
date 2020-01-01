@@ -3,23 +3,33 @@
 #include <limits.h>
 
 void extraLongFactorials(int n) {
-    typedef unsigned long long sup;
-
-    sup fact = n;
+    typedef short sup;
+    sup temp[100];
+    temp[0] = n;
+    
+    int j = 1;
 
     for (int i=1; i < n; i++){
-        fact *= n - i;
+        for (int pos = 0; pos < j; pos++){
+            temp[pos] *= n - i;
+            sup debug = temp[pos];
+
+            if (temp[pos] >= 10000){
+                temp[pos + 1] += temp[pos] / 10000;
+                j++;
+            }
+        }
     }
+    for (int count=0; count<j; count++)
+        printf("%d\n", temp[count]);
 
-    printf("%llu\n", fact);
-    printf("%llu\n", ULLONG_MAX);
-
-    return; 
+    return;
 }
+
 
 
 int main()
 {
-    extraLongFactorials(25);
+    extraLongFactorials(10);
     return 0;
 }
