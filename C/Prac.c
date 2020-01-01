@@ -18,4 +18,5 @@ int main()
     for (int i=0; i<5; i++){
         printf("%d", result[i]);
     }
+    printf("%d", 30240/10000);
 }
