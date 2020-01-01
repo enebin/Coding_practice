@@ -6,8 +6,9 @@ int findDigits(int n) {
     int i = 1;
     int count = 0;
 
-    while (n > int(pow(10, i-1) + 0.5)){
-        int remain = (n % int(pow(10, i) + 0.5)) / int(pow(10, i-1) + 0.5);
+   while (n >= int(pow(10, i-1) + 0.5)){
+        int cut = n / int(pow(10, i-1));
+        int remain = cut % 10;
 
         if (!remain){
             i++;
@@ -20,14 +21,16 @@ int findDigits(int n) {
             count += 1;
             i++;
         }
+        else {
+            i++;
+        }
     }
-
     return count;
 }
 
 
 int main()
 {
-    printf("%d\n", findDigits(1061));
+    printf("%d\n", findDigits(106108048));
     return 0;
 }
