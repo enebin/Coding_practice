@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "Prac.C": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "stdio.h": "c"
     }
 }

@@ -1,4 +1,2 @@
-c = int(input())
-for i in range(c):
-    a, b = map(int, input().split())
-    print(pow(a, b)%10)
+import math as m
+print(m.sqrt(200000**2 + 200000**2))
