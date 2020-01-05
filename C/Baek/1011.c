@@ -12,8 +12,8 @@ int main()
 
         scanf("%d %d", &x, &y);
 
-        if (y-x == 1){
-            printf("%d", 1);
+        if (y-x <= 2){
+            printf("%d\n", 3);
         }
         else{
             int plus = 2;
@@ -23,7 +23,7 @@ int main()
                 result += plus;
                 if (j % 2 == 0)
                     plus++;
-                if (y-x > result){
+                if (y-x-2 > result){
                     printf("%d\n", j+2);
                     break;
                 }
