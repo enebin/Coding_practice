@@ -24,7 +24,7 @@ int main()
                 if (j % 2 == 0)
                     plus++;
                 if (y-x > result){
-                    printf("%d", j);
+                    printf("%d\n", j+2);
                     break;
                 }
             }
