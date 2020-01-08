@@ -3,6 +3,7 @@
         "Prac.C": "cpp",
         "cmath": "cpp",
         "stdio.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "2438.C": "cpp"
     }
 }
