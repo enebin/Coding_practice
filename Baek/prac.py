@@ -1,3 +1,3 @@
-a, b = map(int, input().split())
+l = range(1, 100)
 
-print(a/b)
+print(sum(l))
