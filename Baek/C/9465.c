@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int up_score[100000] = {0};
-int dn_score[100000] = {0};
+int up_score[100000][2];
 
 int main()
 {
