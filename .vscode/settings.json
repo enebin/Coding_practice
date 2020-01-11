@@ -4,6 +4,7 @@
         "cmath": "cpp",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "2438.C": "cpp"
+        "2438.C": "cpp",
+        "limits": "c"
     }
 }

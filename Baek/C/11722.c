@@ -10,7 +10,7 @@ int main()
     int iter;
     scanf("%d", &iter);
 
-    for (int i=1; i<=iter; i++){
+    for (int i=iter; i>=1; i--){
         scanf("%d", &x[i]);
     }
  
