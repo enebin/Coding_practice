@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int res[500001];
+int Dp[1000001] = {0};
 int min = 500000;
 int count = 0;
 int temp;
@@ -19,24 +20,18 @@ int main()
         res[i] = i*i;
         j++;
     }
+    
+    Dp[1] = iter;
 
-    while(j){
-        temp = iter;
-        count = 0;
+    for (int i=2; i<=iter; i--){
+        Dp[i] = 1 + Dp[iter - res[i] * res[i]];
 
-        for (int i=j; i>=1; i--){
-            while (temp - res[i] >= 0){
-                temp -= res[i];
-                count++;
-            }
-        }
-                
-        if (min > count){
+        if (min > count)
             min = count;
-        }
-
-        j--;
+        
+        Dp[i] = count;
     }
+
 
     printf("%d\n", min);
 
