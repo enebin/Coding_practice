@@ -1,39 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int res[500001];
+int res[1001];
 int Dp[1000001] = {0};
-int min = 500000;
-int count = 0;
 int temp;
 
 
 int main()
 {
-    int iter;
-    //scanf("%d", &iter);
-
-    iter = 43;
-
-    int j = 0;
-    for(int i=1; i*i<=iter; i++){
+    for (int i=1; i<=1000; i++){
         res[i] = i*i;
-        j++;
     }
+
+    int iter;
+    scanf("%d", &iter);
+
+    Dp[1] = 1;
     
-    Dp[1] = iter;
-
-    for (int i=2; i<=iter; i--){
-        Dp[i] = 1 + Dp[iter - res[i] * res[i]];
-
-        if (min > count)
-            min = count;
-        
-        Dp[i] = count;
+    for (int i=1; i<=iter; i++){
+        int min = 500000;
+        for (int j=1; res[j] <= i; j++){
+            temp = 1 + Dp[i - res[j]];
+            if (min > temp)
+                min = temp;
+        }
+        Dp[i] = min;
     }
 
-
-    printf("%d\n", min);
+    printf("%d\n", Dp[iter]);
 
     return 0;
 }
