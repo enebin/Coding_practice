@@ -6,9 +6,11 @@ int main()
     int iter;
     scanf("%d", &iter);
 
-    while(iter--){
-        
+    for(int i=1; i<=iter; i++){
+        scanf("%d", &some);
     }
+
+    printf("%d", some);
 
     return 0;
 }
