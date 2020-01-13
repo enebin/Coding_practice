@@ -21,7 +21,7 @@ int main(){
         }
     }
  
-    printf("%d\n", 5/10);
+    printf("%d\n", result[iter]);
  
     return 0;
 }

@@ -7,10 +7,10 @@ int main()
     scanf("%d", &iter);
 
     for(int i=1; i<=iter; i++){
-        scanf("%d", &some);
+        scanf("%d", &iter);
     }
 
-    printf("%d", some);
+    printf("%d", &iter);
 
     return 0;
 }
