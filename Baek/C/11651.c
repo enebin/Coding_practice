@@ -9,7 +9,7 @@ static int comp(const void* p1, const void* p2) {
 
   int diff = arr1[1] - arr2[1];
 
-  if (diff) 
+  if (diff)
     return diff;
 
   return arr1[0] - arr2[0];
