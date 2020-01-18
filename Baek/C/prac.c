@@ -1,33 +1,60 @@
 #include <stdio.h>
-
-void adder(char* a, char* b){
-    for (int i=0; i<2; i++){
-        int sum = a[i]-48 + b[i]-48;
-
-        if (sum >= 10){
-            sum -= 10;
-            a[i+1]++; 
-        }
-
-        a[i] = sum + 48;
-    }
-    return;
+#include <assert.h>
+int BIT[100010];
+int N, M;
+int sum(int i) {
+	int ret = 0;
+	while (i > 0) {
+		ret += BIT[i];
+		i -= (i & -i);
+	}
+	return ret;
 }
-
-int main(){
-    char a[10];
-    char b[10];
-
-    sprintf(a, "%d", 81);
-    sprintf(b, "%d", 21);
-
-    adder(a, b);
-
-    for (int i=1; i>=0; i--){
-        printf("%c", a[i]);
-    }
- 
-    return 0;
+void update(int i, int num) {
+	while (i <= N) {
+		BIT[i] += num;
+		i += (i & -i);
+	}
 }
-
-
+int count_person(int i, int j) {
+	j = j % N;
+	if (j == 0) j = N;
+	if (j >= i)
+		return sum(j) - sum(i);
+	return sum(N) - sum(i) + sum(j);
+}
+int main(void) {
+	scanf("%d %d", &N, &M);
+	for(int i = 1; i <= N; i++)
+		update(i, 1);
+	printf("<%d", M);
+	update(M, -1);
+	int cur = M;
+	int left = N-1;
+	while (left > 0) {
+		// count_person(cur, i) = N인 최소의 i를 찾고싶다.
+		int st = cur + 1;
+		int en = cur + N;
+		while (st < en) {			
+			int mid = (st + en) / 2;
+			int val = count_person(cur, mid);			
+			int M_mod = M % left;
+			if (M_mod == 0) M_mod = left;
+			if (val < M_mod)
+				st = mid + 1;
+			else if (val == M_mod)
+				en = mid;
+			else
+				en = mid - 1;
+			
+		}	
+		assert(st == en);
+		st = st % N;
+		if (st == 0) st = N;
+		printf(", %d", st);
+		cur = st;
+		update(st, -1);
+		left--;
+	}
+	printf(">");
+}
