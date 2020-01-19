@@ -4,29 +4,26 @@
 
 typedef long long int lld;
 
-char* str;
+char str[100];
 int mode;
 
 int main()
 {
-    int iter;
-    scanf("%s", str);
-    scanf("%d", mode);
+    scanf("%s %d", str, &mode);
 
     lld len = strlen(str);
     lld res = 0;
 
     for(lld i=0; i<len; i++){
         int num = str[i];
-        printf("%c ", str[i]);
 
         if (num >= 'A')
-            res += (num - 'A' + 1) * pow(mode, len - i - 1);
+            res += (10 + num - 'A') * (lld)(pow(mode, len - i - 1) + 0.5);
         else
-            res += (num - '0') * pow(mode, len - i - 1);
+            res += (num - '0') * (lld)(pow(mode, len - i - 1) + 0.5);
     }
 
-    //printf("%lld\n", res);
+    printf("%lld\n", res);
 
     return 0;
 }
