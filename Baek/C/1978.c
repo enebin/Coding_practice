@@ -2,34 +2,41 @@
 #include <stdlib.h>
 
 int nums[100] = {0};
-int Dp[1001];
-int car[1001] = {2};
+int sosu[1001] = {2};
+
 int main()
 {
     int iter;
     scanf("%d", &iter);
 
+    int max = 0;
     for(int i=1; i<=iter; i++){
         scanf("%d", &nums[i]);
+        if (max < nums[i])
+            max = nums[i];
     }
 
-    for (int i=1; i<=nums[iter]; i++){
-        Dp[i] = i+1;        
+    int count = 0;
+    int none = 0;
+    for (int i=2; i<=max; i++){
+        for (int j=0; j<=count; j++){
+            if (i % sosu[j] == 0){
+                none = 1;
+            }
+        }
+        if (!none)
+            sosu[++count] = i;
+        none = 0;
     }
 
-    for (int i=1; i<=nums[iter]; i++){
-        for (int j=0; j<i; j++){
-            if (Dp[i] % Dp[j] == 0)
-                break;
-            Dp[i] =         
-
+    int res = 0;
+    for (int i=0; i<=count; i++){
+        for (int j=1; j<=iter; j++){
+            if (nums[j] == sosu[i])
+                res++;
         }
     }
 
-    for (int i=1; i<=iter; i++){
-
-        }
-    }
-
+    printf("%d\n", res);
     return 0;
 }
