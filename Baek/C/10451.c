@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int graph[1001][1001] = {0};
 int Dvisit[1001] = {0};
@@ -6,7 +7,6 @@ int count = 0;
 
 void dfs(int v, int n){
     Dvisit[v] = 1;
-    printf("%d ", v);
     count++;
 
     for (int i=1; i<=n; i++){
@@ -27,16 +27,14 @@ int main(){
         int m;
         scanf("%d", &m);
 
-        for (int i=1; i<=m; i++)
-            Dvisit[i] = 0;
+        memset(graph, 0, sizeof(graph));
+        memset(Dvisit, 0, sizeof(Dvisit));
 
         int y;
         for (int i=1; i<=m; i++){
             scanf("%d", &y);
             graph[i][y] = 1;
-            /*if (y == i)
-                counter++;*/
-        }
+        }     
 
         for(int v=1; v<=m; v++){
             if (Dvisit[v] == 0){
@@ -47,8 +45,7 @@ int main(){
                 count = 0;
             }
         }
-
-        printf("\n%d\n", counter);
+        printf("%d\n", counter);
     }
     return 0;
 }
