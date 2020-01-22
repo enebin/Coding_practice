@@ -23,33 +23,30 @@ int main()
         memset(Dvisit, 0, sizeof(Dvisit));
 
         int n, m;
-        //scanf("%d %d", &n, &m);
-        n = 5, m = 4;
+        scanf("%d %d", &n, &m);
 
         if (!n && !m)
             break;            
 
-        /*for(int i=1; i<=n; i++){
+        for(int i=1; i<=n; i++){
             for (int j=1; j<=m; j++){
                 scanf("%1d", &graph[i][j]);
             }
-        }*/
+        }
 
-        
-
-        int k = 1;
+        int k = 0;
         for (int i=1; i<=n; i++){
             for (int j=1; j<=m; j++){
                 if (graph[i][j] && !Dvisit[i][j])
                     dfs(i, j);
-                
                 if (count)
                     k++;
                 count = 0; 
+                printf("%d, %d/ ", graph[1][3], Dvisit[1][3]);
             }
         }
 
-        printf("%d\n", k-1);
+        printf("%d\n", k);
     }
     return 0;
 }
