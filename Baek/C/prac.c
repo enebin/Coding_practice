@@ -1,37 +1,57 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-int graph_x[20001] = {0};
-int graph_y[20001] = {0};
+typedef struct _node {
+    int vertex;
+    int data;
+    struct _node* Node;    
+}Node;
+
+
 int Dvisit[1001] = {0};
+int count = 0;
 
 void dfs(int v, int n){
     Dvisit[v] = 1;
-    printf("%d ", v);
+    count++;
 
     for (int i=1; i<=n; i++){
-        if (graph_x[v] && graph_y[i] && !Dvisit[i]){
+        if (graph[v][i] && !Dvisit[i]){
             dfs(i, n);
         }
     }
-
     return;
 }
 
-int main()
-{
-    int n, m, v;
-    scanf("%d %d %d", &n, &m, &v);
+int main(){
+    int iter;
+    scanf("%d", &iter);
 
-    int x, y;
-    while(m--){
-        scanf("%d %d", &x, &y);
-        graph_x[x] = 1; graph_y[y] = 1;
-        graph_x[y] = 1; graph_y[x] = 1;
+    while (iter--){
+        int counter= 0;
+
+        int m;
+        scanf("%d", &m);
+
+        memset(graph, 0, sizeof(graph));
+        memset(Dvisit, 0, sizeof(Dvisit));
+
+        int y;
+        for (int i=1; i<=m; i++){
+            scanf("%d", &y);
+            graph[i][y] = 1;
+        }     
+
+        for(int v=1; v<=m; v++){
+            if (Dvisit[v] == 0){
+                dfs(v, m);
+
+                if (count >= 1)
+                    counter++;
+                count = 0;
+            }
+        }
+        printf("%d\n", counter);
     }
-
-    dfs(v, n);
-    printf("\n");
-
     return 0;
 }
