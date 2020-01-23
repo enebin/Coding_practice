@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int graph[1001][1001] = {0};
+int graph[101][101] = {0};
+int Bvisit[101][101];
 
 int queue[1001] = {0};
 int cursor = 0;
@@ -9,10 +10,11 @@ int count = 0;
 
 void add(int num){
     queue[cursor++] = num;
-    /*printf("add: %d/ ", num);
+
+    printf("add: %d/ ", num);
     for (int i=0; i<60; i++)
         printf("%d, ", queue[i]);    
-    printf("%d<-cursor\n", cursor);*/
+    printf("%d<-cursor\n", cursor);
 }
 
 int pop(){
@@ -26,28 +28,21 @@ int pop(){
 }
 
 void bfs(int v1, int v2){
-    graph[v1][v2] = 1;
+    Bvisit[v1][v2] = 1;
 
-    /*for (int i=1; i<=6; i++){
-        for (int j=1; j<=6; j++){
-            printf("%d ", graph[j][i]);
-        }
-        printf("\n");
-    }*/
+    if (graph[v1+1][v2] == 0){
+        add(v1+1);
+        add(v2);
+        v1 ++;
+    }
 
-    for (int i=-1; i<2; i+=2){
-        if(graph[v1+i][v2] == 0){
-            add(v1+i);
-            add(v2);
-            v1 += i;
-        }
-        if(graph[v1][v2+i] == 0){
-            add(v1);
-            add(v2+i);
-            v2 += i;
-        }
+    if (graph[v1][v2+1] == 0){
+        add(v1);
+        add(v2+1);
+        v2 ++;
     }
     
+    bfs(v1, v2);    
 }
 
 int main()
