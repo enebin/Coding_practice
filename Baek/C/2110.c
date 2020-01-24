@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef long long int lld;
-
-lld house[200001];
+int house[200001];
 
 int comp(const void* x, const void* y){
     int a = *(int*)x;
@@ -14,22 +12,40 @@ int comp(const void* x, const void* y){
 
 int main()
 {
-    int k, n;
-    scanf("%d %d", &k, &n);
+    int c, n;
+    scanf("%d %d", &n, &c);
 
     int max = 0;
-    for(int i=1; i<=k; i++){
-        scanf("%lld", &house[i]);
+    for(int i=1; i<=n; i++){
+        scanf("%d", &house[i]);
     }
 
-    qsort(house, k, sizeof(lld), comp);
+    qsort(house, n, sizeof(int), comp);
 
-    lld min = 100000000000;
-    for (int i=1; i<=k-1; i++){
-        min = min < house[i+1] - house[i] ? min : house[i+1] - house[i];
+    int left = 1;
+    int right = house[n] - house[1];
+    int mid;
+
+    while (left <= right) {
+        mid = (left + right) / 2;
+        int res = 1;
+        int start = house[1];
+
+        for (int i=1; i<=n; i++){
+            if (house[i] - start >= mid){
+                res++;
+                start = house[i];
+            }
+        }
+
+        if (res >= c){
+            left = mid + 1;
+        }
+        else 
+            right = mid - 1;
     }
+    
 
-    printf("%lld\n", min);
-  
+    printf("%d\n", left - 1);  
     return 0;
 }
