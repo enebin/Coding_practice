@@ -42,7 +42,7 @@ int main()
             }
             else if (res == input){
                 printf("%d\n", 1);
-                flag = 1;
+                flag++;
                 break;
             }
             else 
