@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define STEP 100000
+
 float loc1[4];
 float loc2[4];
 
