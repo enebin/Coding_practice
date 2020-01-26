@@ -5,6 +5,9 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "2438.C": "cpp",
-        "limits": "c"
+        "limits": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }
