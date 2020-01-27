@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "gcc compile",
+            "label": "g++ compile",
             "type": "shell",
-            "command": "gcc",
+            "command": "g++",
             "options": {
                 "cwd": "${fileDirname}"
             },
@@ -45,8 +45,8 @@
         },
         {
             "type": "shell",
-            "label": "gcc.exe build active file",
-            "command": "C:\\MinGW\\bin\\gcc.exe",
+            "label": "g++.exe build active file",
+            "command": "C:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
