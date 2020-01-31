@@ -48,7 +48,7 @@ int main(){
         if (res >= 0){
             min = res < min ? res : min;
         }
-    } while(next_permutation(nums.begin(), nums.end()));
+    } while(next_permutation(nums.begin()+1, nums.end()));
 
     cout << min << endl;
 }
