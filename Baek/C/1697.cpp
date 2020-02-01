@@ -1,32 +1,34 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
-
+#include <queue>
 using namespace std;
-int co = INT32_MAX;
 
-void calc(int n, int m, int count, int tr){
-    if (n != m && tr--){
-        if (n > 0)
-            calc(n-1, m, count+1, tr);
+int n, k;
+int visited[100001]={0,};
+
+queue<int> q;
+
+int bfs(){
+    q.push(n); visited[n] = 1;
+    while(!q.empty()){
+        int p = q.front(); q.pop();
+        if(p==k) return visited[p]-1;
         
-        calc(n+1, m, count+1, tr);
-    
-        if (n < m)
-            calc(n*2, m, count+1, tr);
+        if(p-1>=0&&visited[p-1]==0){
+            visited[p-1] = visited[p]+1;
+            q.push(p-1);
+        }
+        if(p+1<=100000&&visited[p+1]==0){
+            visited[p+1] = visited[p]+1;
+            q.push(p+1);
+        }
+        if(2*p<=100000&&visited[2*p]==0){
+            visited[2*p] = visited[p]+1;
+            q.push(2*p);
+        }
     }
-    else{
-        co = co > count ? count : co;
-        return;
-    }
-
 }
-
 int main(){
-    int n, m;
-    cin >> n >> m;
-
-    calc(n, m, 0, n);
+	cin >> n >> k;
     
-    cout << co;
+	cout << bfs();
 }
