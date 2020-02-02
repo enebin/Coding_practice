@@ -40,5 +40,5 @@ int main(){
             e++;
     }
 
-    cout << count;
+    //cout << count;
 }
