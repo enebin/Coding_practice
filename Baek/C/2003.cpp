@@ -10,7 +10,7 @@ int sum(int* x, int* y){
     int res = 0;
     while (x != y)
         res += *(x++);
-    return res;
+    return abs(res);
 }
 
 int main(){
@@ -25,6 +25,7 @@ int main(){
     int* s = nums;
     int* e = nums;
 
+    target = abs(target);
     int result;
     int count = 0;
     while (e != nums + iter + 1){
@@ -36,9 +37,10 @@ int main(){
         }
         else if (result > target)
             s++;
+            
         else
             e++;
     }
 
-    //cout << count;
+    cout << count;
 }

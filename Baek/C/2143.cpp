@@ -7,12 +7,10 @@ using namespace std;
 int A[1001];
 int B[1001];
 
-int sum(int* x, int* y){
-    int res = 0;
-    while (x != y)
-        res += *(x++);
-    return res;
-}
+vector<int> A_part;
+vector<int> B_part;
+
+vector<int>::iterator iter;
 
 int main(){
     int target;
@@ -29,22 +27,35 @@ int main(){
         cin >> B[i];
     }
 
-    int* as = A; int* ae = A;    
-    int* bs = B; int* be = B;
-    
-    int result;
-    int count = 0;
-    while (ae != A + n + 1 || be != B + m + 1){
-        result = sum(s, e);
-
-        if (result == target){
-            e++;
-            count++;
+    for (int i=0; i<n; i++){
+        for (int j=i; j<n; j++){
+            int sum = 0;
+            for (int k=i; k<=j; k++)
+                sum += A[k];
+                A_part.push_back(sum);
         }
-        else if (result > target)
-            s++;
-        else
-            e++;
     }
 
+    for (int i=0; i<m; i++){
+        for (int j=i; j<m; j++){
+            int sum = 0;
+            for (int k=i; k<=j; k++)
+                sum += B[k];
+                B_part.push_back(sum);
+        }
+    }
+
+    sort(A_part.begin(), A_part.end());
+    sort(B_part.begin(), B_part.end());
+
+    long long result = 0;
+    for (int i=0; i<A_part.size() && A_part[i]; i++){
+        int low = lower_bound(B_part.begin(), B_part.end(), target - A_part[i]) - B_part.begin();
+        int high = upper_bound(B_part.begin(), B_part.end(), target - A_part[i]) - B_part.begin();
+        result += high - low;
+    }
+
+    cout << result << "\n";
+
+    return 0;
 }
