@@ -10,6 +10,7 @@
         "initializer_list": "c",
         "utility": "c",
         "iostream": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "functional": "cpp"
     }
 }
