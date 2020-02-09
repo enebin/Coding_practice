@@ -1,85 +1,149 @@
 #include <iostream>
-#include <queue>
-using namespace std;
- 
-int change_prime(int n,int i,int j){
-    
-    int k=n;
-    if(i==1){
-        k-=(n/1000)*1000;
-        k+=j*1000;
-    }else if(i==2){
-        k-=((n/100)%10)*100;
-        k+=j*100;
-    }else if(i==3){
-        k-=((n%100)/10)*10;
-        k+=j*10;
-    }else if(i==4){
-        k-=n%10;
-        k+=j;
-    }
-    
-    return k;
-}
- 
-int main(){
-    int prime[10000]={0};
-    for(int i=1001;i<10000;i++){
-        
-        prime[i]=1;
-        for(int j=2;j<i;j++){
-            if(i%j==0){
-                prime[i]=0;
-                break;
-            }
-        }
-    }
-    
-    int K;
-    cin>>K;
 
-    int n1,n2,cnt;
-    for(int testCase=0;testCase<K;testCase++){
-        scanf("%d %d",&n1,&n2);
-        
-        int visited[10000]={0};
-        
-        queue<pair<int,int>> q;
-        visited[n1]++;
-        q.push(make_pair(n1,0));
-        
-        bool check=false;
-        
-        while(!q.empty()){
-            n1=q.front().first;
-            cnt=q.front().second;
-            q.pop();
-            
-            if(n1==n2){
-                printf("%d\n",cnt);
-                check=true;
-                break;
-            }
-            
-            int n=0;
-            for(int i=1;i<=4;i++){
-                for(int j=0;j<=9;j++){
-                    n=change_prime(n1,i,j);
-                    if(n<1000 || visited[n] || prime[n]==0)
-                        continue;
-                    
-                    visited[n]++;
-                    q.push(make_pair(n,cnt+1));
-                }
-            }
-            
-        }
-        
-        if(!check){
-            printf("Impossible\n");
-        }
-    }
+#include <vector>
+
+using namespace std;
+
  
-    return 0;
+
+const int MAX = 9;
+
+ 
+
+int sudoku[MAX][MAX];
+
+bool row[MAX][MAX + 1]; //열, 1~9
+
+bool col[MAX][MAX + 1]; //행, 1~9
+
+bool square[MAX][MAX + 1]; //3*3 박스 idx, 1~9
+
+ 
+
+int change2SquareIdx(int y, int x)
+
+{
+
+        return (y / 3) * 3 + x / 3;
+
 }
+
  
+
+void DFS(int cnt)
+
+{
+
+        if (cnt == 81) //Sudoku는 총 81칸
+
+        {
+
+                 for (int i = 0; i < MAX; i++)
+
+                 {
+
+                         for (int j = 0; j < MAX; j++)
+
+                                 cout << sudoku[i][j] << " ";
+
+                         cout << endl;
+
+                 }
+
+                 exit(0); //답을 하나만 출력
+
+        }
+
+ 
+
+        int y = cnt / 9;
+
+        int x = cnt % 9;
+
+ 
+
+        if (sudoku[y][x]) //칸이 채워져있으면
+
+                 DFS(cnt + 1);
+
+        else //채워져있지 않았고
+
+        {
+
+                 for (int k = 1; k <= MAX; k++)
+
+                 {
+
+                         //sudoku 규칙에 적합하면 채우고 본다
+
+                         if (!col[x][k] && !row[y][k] && !square[change2SquareIdx(y, x)][k])
+
+                         {
+
+                                 sudoku[y][x] = k;
+
+                                 col[x][k] = true;
+
+                                 row[y][k] = true;
+
+                                 square[change2SquareIdx(y, x)][k] = true;
+
+                                 DFS(cnt + 1);
+
+                                 sudoku[y][x] = 0;
+
+                                 col[x][k] = false;
+
+                                 row[y][k] = false;
+
+                                 square[change2SquareIdx(y, x)][k] = false;
+
+                         }
+
+                 }
+
+        }
+
+}
+
+ 
+
+int main(void)
+
+{
+
+        for (int i = 0; i < MAX; i++)
+
+        {
+
+                 for (int j = 0; j < MAX; j++)
+
+                 {
+
+                         cin >> sudoku[i][j];
+
+                         if (sudoku[i][j])
+
+                         {
+
+                                 col[j][sudoku[i][j]] = true;
+
+                                 row[i][sudoku[i][j]] = true;
+
+                                 square[change2SquareIdx(i, j)][sudoku[i][j]] = true;
+
+                         }
+
+                 }
+
+        }
+
+ 
+
+        DFS(0); //sudoku는 81칸
+
+ 
+
+        return 0;
+
+}
