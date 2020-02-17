@@ -1,24 +1,30 @@
-#include <iostream>
+#include <stdio.h>
 #include <algorithm>
-#include <vector>
 
 using namespace std;
-vector<int> num;
 
-int main(){
-    int iter;
-    cin >> iter;
+int main()
+{
+    int N, K;
+    scanf("%d %d", &N, &K);
 
-    for (int i=1; i<=iter; i++){
-        for (int j=1; j<=iter; j++){
-            num.push_back(i*j);
+    int left = 1, right = K, ans;
+    while (left <= right)
+    {
+        long long cnt = 0;
+        int mid = (left + right) / 2;
+
+        for (int i = 1; i <= N; i++)
+            cnt += std::min(mid / i, N);
+
+        if (cnt < K)
+            left = mid + 1;
+        else {
+            ans = mid;
+            right = mid - 1;
         }
     }
+    printf("%d", ans);
 
-    sort(num.begin(), num.end());
-
-    int targ;
-    cin >> targ;
-
-    cout << num[targ];
+    return 0;
 }
