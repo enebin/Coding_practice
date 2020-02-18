@@ -11,7 +11,7 @@ void push(int x){
 
     int i = cursor;
     while (i > 1){
-        if (heap[i] > heap[i/2])
+        if (heap[i] < heap[i/2])
             swap(heap[i], heap[i/2]);
         else
             break;
@@ -29,15 +29,15 @@ void pop(){
     printf("%d\n", heap[1]);
 
     swap(heap[1], heap[cursor]);
-    heap[cursor--] = 0;
+    heap[cursor--] = INT32_MAX;
 
     int i = 1;
     while (i*2 <= cursor){
-        if (heap[i] > heap[i*2] && heap[i] > heap[i*2 + 1])
+        if (heap[i] < heap[i*2] && heap[i] < heap[i*2 + 1])
             break;
 
         else{
-            if (heap[i*2] > heap[i*2 + 1]){
+            if (heap[i*2] < heap[i*2 + 1]){
                 swap(heap[i], heap[i*2]);
                 i *= 2;
             }
