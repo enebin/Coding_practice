@@ -11,6 +11,7 @@
         "utility": "c",
         "iostream": "c",
         "ostream": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "random": "cpp"
     }
 }
