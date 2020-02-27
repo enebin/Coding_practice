@@ -12,6 +12,8 @@
         "iostream": "c",
         "ostream": "cpp",
         "functional": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "chrono": "cpp",
+        "valarray": "cpp"
     }
 }
