@@ -9,9 +9,8 @@ using namespace std;
 typedef pair<int, int> pii;
 
 int INF = INT32_MAX;
-int V, E;
  
-vector<pair<int, int>> map[20001];  // map[시작점](도착점, 가중치)
+vector<pair<int, int>> map[801];  // map[시작점](도착점, 가중치)
  
 vector<int> Dijkstra(int start, int vertex){
     vector<int> d(vertex, INF);     // d[0 ~ vertex] : 시작점에서 각 vertex까지의 최단거리 기록
@@ -43,21 +42,30 @@ vector<int> Dijkstra(int start, int vertex){
  
 int main()
 {
-    int start;
-    scanf("%d %d\n %d", &V, &E, &start);
+    int V, E, start;
+    scanf("%d %d", &V, &E);
     for (int i = 0; i < E; ++i) {
         int u, v, w;
         scanf("%d %d %d", &u, &v, &w);
         map[u].push_back(make_pair(v,w));
     }
 
-    vector<int> dist = Dijkstra(start, ++V);
+    int m, n;
+    scanf("%d %d", &m, &n);
+
+    V++;
+    vector<int> dist = Dijkstra(1, V);
+    vector<int> dist2m = Dijkstra(m, V);
+    vector<int> dist2n = Dijkstra(n, V);
+
+    int result = min(dist[m] + dist2m[V-1], dist[n] + dist2n[V-1]);
+
+    cout << dist[m];
  
-    for (int i = 1; i < V; ++i) {
-        if (dist[i] == INF)
-            printf("INF\n");
-        else
-            printf("%d\n", dist[i]);
-    }
+    if (result == INF)
+        printf("-1\n");
+    else
+        printf("%d\n", result + 1);
+
     return 0;
 }
