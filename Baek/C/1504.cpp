@@ -1,5 +1,3 @@
-// 참고 : https://hsp1116.tistory.com/42
-
 #include <iostream>
 #include <cstdio>
 #include <vector>
@@ -48,6 +46,7 @@ int main()
         int u, v, w;
         scanf("%d %d %d", &u, &v, &w);
         map[u].push_back(make_pair(v,w));
+        map[v].push_back(make_pair(u,w));
     }
 
     int m, n;
@@ -58,14 +57,21 @@ int main()
     vector<int> dist2m = Dijkstra(m, V);
     vector<int> dist2n = Dijkstra(n, V);
 
-    int result = min(dist[m] + dist2m[V-1], dist[n] + dist2n[V-1]);
+    int path1 = INF, path2 = INF;
 
-    cout << dist[m];
- 
-    if (result == INF)
+    if (dist[m]!=INF && dist2n[V-1]!=INF && dist2m[n]!=INF)
+        path1 = dist[m] + dist2m[n] + dist2n[V-1];
+
+    if (dist[n]!=INF && dist2m[V-1]!=INF && dist2n[m]!=INF)
+        path2 = dist[n] + dist2n[m] + dist2m[V-1];
+
+    //printf("%d, %d, %d\n", dist[m], dist2m[n], dist2n[V-1]);
+    //printf("%d, %d, %d\n", dist[n], dist2n[m], dist2m[V-1]);
+
+    if (path1==INF && path2==INF)
         printf("-1\n");
     else
-        printf("%d\n", result + 1);
+        printf("%d\n",  min(path1, path2));
 
     return 0;
 }
