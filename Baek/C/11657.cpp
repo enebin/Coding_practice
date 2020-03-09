@@ -2,17 +2,14 @@
 #include <vector>
 #include <algorithm>
 
-using namespace std;
-
 #define INF 987654321
 
-int N = 0, M = 0;
+using namespace std;
 
 vector<pair<int, int>> v[501];
 
-int dist[501] = {
-    0,
-};
+int dist[501] = {0, };
+int N, M;
 
 int main(void)
 {
@@ -22,7 +19,7 @@ int main(void)
 
     for (int i = 0; i < M; i++)
     {
-        scanf("%d %d %d", &A, &B, &C);
+        scanf("%d %d %d", &A, &B, &C);  // 출발, 도착, 가중치
 
         v[A].push_back({B, C});
     }
@@ -32,26 +29,23 @@ int main(void)
     // 시작 정점
     dist[1] = 0;
 
-    for (int i = 0; i < N; i++)
+    for (int i=1; i<=N; i++)
     {
         for (int here = 1; here <= N; here++)
         {
             for (int index = 0; index < v[here].size(); index++)
             {
-                int next = v[here].at(index).first;
+                int next = v[here][index].first;
+                int next_score = dist[here] + v[here][index].second;
 
-                if (dist[next] > dist[here] + v[here].at(index).second && dist[here] != INF)
-                {
-                    if (i == N - 1)
-                    {
-                        // 음수 사이클
-
+                if (dist[next] > next_score && dist[here] != INF){
+                    if (i == N){    // 음수 사이클
                         printf("-1\n");
-
                         return 0;
                     }
 
-                    dist[next] = dist[here] + v[here].at(index).second;
+                    else
+                        dist[next] = next_score;
                 }
             }
         }
