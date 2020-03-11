@@ -5,7 +5,6 @@
 #include <queue>
 
 using namespace std;
-using namespace std;
 typedef pair<int, pair<int, int>> pii;
 
 int INF = INT32_MAX;
@@ -14,12 +13,12 @@ int V, E, c, d;
  
 vector<pair<int, pair<int, int>>> map[101];  // map[시작점](도착점, (비용, 시간))
  
-vector<int> Dijkstra(int start, int vertex){
-    vector<int> d(vertex, INF);     // d[0 ~ vertex] : 시작점에서 각 vertex까지의 최단시간 기록
+vector<vector<int>> Dijkstra(int start, int vertex){
+    vector<vector<int>> d(vertex+1, vector<int>(M+1, INF));     // d[0 ~ vertex][0 ~ M] : 시작점에서 각 vertex까지의 최단시간, 가는데 드는 비용
 
     priority_queue<pii, vector<pii>, greater<pii>> pq;  // pq(최단거리, (최단거리 가지고 있는 vertex, 비용)) : 최소힙
     pq.push({0, {start, 0}});
-    d[start] = 0;
+    d[start][0] = 0;
     
     while (!pq.empty()) {
         int distance = pq.top().first;  // 최단시간
@@ -28,7 +27,7 @@ vector<int> Dijkstra(int start, int vertex){
 
         pq.pop();
 
-        if (d[current] < distance)
+        if (d[current][curMoney] < distance)
             continue;
 
         for (int i=0; i<map[current].size(); ++i) {
@@ -36,8 +35,8 @@ vector<int> Dijkstra(int start, int vertex){
             int nextDistance = map[current][i].second.second + distance;      // 그 vertex까지의 거리
             int nextMoney = map[current][i].second.first + curMoney;
 
-            if (d[next] > nextDistance && nextMoney < M) {
-                d[next] = nextDistance;
+            if (d[next][nextMoney] > nextDistance && nextMoney <= M) {
+                d[next][nextMoney] = nextDistance;
                 pq.push({nextDistance, {next, nextMoney}});
             }
         }
@@ -59,21 +58,26 @@ int main(){
             map[V].push_back({E, {c, d}});
         }
 
-        vector<int> dist = Dijkstra(1, ++N);
-
-         
-    for (int i = 1; i < N; ++i) {
-        if (dist[i] == INF)
-            printf("INF\n");
-        else
-            printf("%d\n", dist[i]);
-    }
+        vector<vector<int>> dist = Dijkstra(1, ++N);
+            
+        /*for (int i = 1; i < N; ++i) {
+            if (dist[i] == INF)
+                printf("INF\n");
+            else
+                printf("%d\n", dist[i]);
+        }*/
  
-    if (dist[N-1] == INF)
-        printf("Poor KCM\n");
-    else
-        printf("%d\n", dist[N-1]);
+        int minn = INF;
+        for (int i=0; i<=M; i++){
+            if (dist[N-1][i] <= minn)
+                minn = dist[N-1][i];
+            }
+            
+        if (minn != INF)
+            printf("%d\n", minn);
+        else
+            printf("Poor KCM\n");
     }
-
+    
     return 0;
 }
