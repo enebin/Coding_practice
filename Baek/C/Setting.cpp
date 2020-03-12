@@ -8,8 +8,5 @@ using namespace std;
 int main(){
     int iter;
     cin >> iter;
-
-    
-    
-
+   
 }
