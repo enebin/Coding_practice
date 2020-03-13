@@ -1,27 +1,22 @@
-#include <iostream>
+#include <cstdio>
 #include <algorithm>
-#include <vector>
-
-#define MAX 1001
+//#define min(a, b) = a > b ? b : a
 
 using namespace std;
 
-int home[MAX][4]; // [n]번 집을 [RGB]로 칠하는 방법
-int dp[MAX][4];
-
-int DyP(int n, int m){
-    
-}
+int dp[1001][3], N;
 
 int main(){
-    int iter;
-    cin >> iter;
-
-    for (int i=1; i<=iter; i++)
-        for (int j=1; j<=3; j++)
-            cin >> home[i][j];
+    scanf("%d", &N);
     
-    int result = DyP(1, 1);
+    for (int i = 1; i <= N; ++i) {
+        int R, G, B;
+        scanf("%d %d %d", &R, &G, &B);
 
+        dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + R;
+        dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + G;
+        dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + B;
+    }
 
+    printf("%d", min(dp[N][0], min(dp[N][1], dp[N][2])));
 }
