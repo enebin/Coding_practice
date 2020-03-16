@@ -4,8 +4,10 @@
 
 using namespace std;
 
+
 int main(){
-    int iter;
-    cin >> iter;
+    int n, m;
+    cin >> n >> m;
+    cout << n*m << endl;
    
 }

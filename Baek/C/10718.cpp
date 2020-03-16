@@ -4,8 +4,10 @@
 
 using namespace std;
 
+
 int main(){
-    int iter;
-    cin >> iter;
+    int n = 2;
+    while(n--)
+        cout << "강한친구 대한육군" << '\n';
    
 }
