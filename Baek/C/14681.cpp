@@ -19,6 +19,5 @@ int main(){
         if (res > 0)
             cout << 3 << endl;
         else
-            cout << 2 << endl;
-   
+            cout << 2 << endl;   
 }
