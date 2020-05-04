@@ -1,60 +1,145 @@
 #include <iostream>
-#include <cstdio>
+
+#include <string>
+
 #include <algorithm>
-#include <vector>
 
 using namespace std;
-bool board1[51][51], board2[51][51];
 
-int changer(char c){
-    if (c == 'W')
-        return 1;
-    else if (c == 'B')
-        return 0;
-    else 
-        return 99;
+ 
+
+const int INF = 987654321;
+
+const int MAX = 50;
+
+ 
+
+int M, N;
+
+string board[MAX];
+
+//(0, 0)이 W인 체스보드
+
+string whiteFirst[8] = {
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" }
+
+};
+
+//(0, 0)이 B인 체스보드
+
+string blackFirst[8] = {
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" },
+
+        { "BWBWBWBW" },
+
+        { "WBWBWBWB" }
+
+};
+
+ 
+
+//(0, 0)이 W인 체스보드 기준 바뀔 칸 수
+
+int whiteFirstChange(int y, int x)
+
+{
+
+        int cnt = 0;
+
+        for (int i = y; i < y + 8; i++)
+
+                 for (int j = x; j < x + 8; j++)
+
+                         if (board[i][j] != whiteFirst[i - y][j - x])
+
+                                 cnt++;
+
+ 
+
+        return cnt;
+
 }
 
+ 
 
-int main(){
-    int iter, ater;
-    cin >> iter >> ater;
+//(0, 0)이 B인 체스보드 기준 바뀔 칸 수
 
-    board1[0][0] = true;
-    board2[0][0] = false;
+int blackFirstChange(int y, int x)
 
-    for (int j=0; j<50; j++){
-        board1[j+1][0] = !board1[j][0];
-        board2[j+1][0] = !board2[j][0];
+{
 
-        for (int i=0; i<=50; i++){
-            board1[j][i+1] = !board1[j][i];
-            board2[j][i+1] = !board2[j][i];
-        }
-    }
+        int cnt = 0;
 
-    int count1 = 0, count2 = 0;
-    char board_in[51][51];
+        for (int i = y; i < y + 8; i++)
 
-    for (int i=0; i<iter; i++){
-        scanf("%s", board_in[i]);
-    }
+                 for (int j = x; j < x + 8; j++)
 
-    for (int i=0; i<iter; i++){
-        for (int j=0; j<ater; j++){
-            int temp = board_in[i][j];
+                         if (board[i][j] != blackFirst[i - y][j - x])
 
-            cout << changer(temp) << " ";
-                       
-            if (changer(temp) != board1[i][j])
-                count1++;
-            if (changer(temp) != board2[i][j])
-                count2++;
-            
-        }
-        cout << endl;
+                                 cnt++;
 
-    }
+ 
 
-    cout << min(count1, count2) << endl;
+        return cnt;
+
+}
+
+ 
+
+int main(void)
+
+{
+
+        cin >> N >> M;
+
+ 
+
+        for (int i = 0; i < N; i++)
+
+                 cin >> board[i];
+
+ 
+
+        int result = INF;
+
+ 
+
+        for (int i = 0; i + 7 < N; i++)
+
+                 for (int j = 0; j + 7 < M; j++)
+
+                         result = min(result, min(whiteFirstChange(i, j), blackFirstChange(i, j)));
+
+ 
+
+        cout << result << endl;
+
+        return 0;
+
 }
