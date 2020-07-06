@@ -17,6 +17,7 @@
         "valarray": "cpp",
         "cstdio": "cpp",
         "string.h": "c",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "vector": "cpp"
     }
 }
