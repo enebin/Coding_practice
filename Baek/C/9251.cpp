@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int dp[1002][1002] = {0, };
+int dp[1001][1001] = {0, };
 
 int main(){
     ios::sync_with_stdio(false);
@@ -14,17 +14,31 @@ int main(){
     string s1, s2;
     cin >> s1 >> s2;
 
-    for (int i=1; i<=s1.length(); i++){
-        for (int j=1; j<=s2.length(); j++){
-            if (j != 1)
-                dp[i][j] = dp[i][j-1];
-            
-            if (s1[i] == s2[j]){
-                dp[i][j]++;
+    if (s1.length() > s2.length()){
+        string temp = s2;
+        s2 = s1;
+        s1 = temp;
+    }
+
+    int value = 0;
+    for (int i=0; i<s1.length(); i++){
+        for (int j=0; j<s2.length(); j++){
+
+            if (i+1 == 1){
+                if (s1[i] == s2[j]){
+                    value = 1;
+                }
+                dp[1][j+1] = value;
+                
+                //cout << dp[1][j+1] << " " << endl;
+            }            
+            else {
+                if (s1[i] == s2[j]){
+                    value = dp[i][j+1] + 1;
+                }
+                dp[i+1][j+1] = max(dp[i][j+1], value);
             }
 
-            dp[i+1][1] = dp[i][j];
-            cout << dp[i][j] << " ";
         }
     }
    
