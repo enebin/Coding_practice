@@ -1,18 +1,22 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
-int main(){
-    int INF = INT32_MAX;
 
+
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int x, y, w, h;
-    cin >> x >> y>> w >> h;
+    int r;
+    cin >> r;
 
-    cout << min({w - x, h - y, x, y}) << endl;   
+    double x = 2*r*r;
+    double y = M_PI *r*r;
+
+    printf("%lf\n%lf", y, x);
 }
