@@ -25,6 +25,7 @@ int main(){
 
         while (!s.empty())  s.pop();
         long long ans = 0;
+        
         for (int i=0; i<iter; i++){
             while (!s.empty() && a[s.top()] > a[i]){
                 int height = a[s.top()];
