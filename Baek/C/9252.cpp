@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
+#include <stack>
  
 using namespace std;
  
@@ -10,11 +11,6 @@ int lcs[1001][1001];
  
 int main()
 {
-    
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
     string tmp1, tmp2;
     cin >> tmp1 >> tmp2;
  
@@ -57,10 +53,37 @@ int main()
         for (int j = 0; j < len2; j++)
             cout << lcs[i][j] << " ";
         cout << endl;
-    }
+    }    
     */
  
     cout << lcs[len1-1][len2-1] << endl;
  
+    int i = len1-1;
+    int j = len2-1;
+    stack<int> st;
+ 
+    while (lcs[i][j] != 0)
+    {
+        // 경로 추적
+        // cout << " i :: " << i << " j :: " << j << endl;
+        if (lcs[i][j] == lcs[i][j - 1])
+            j--;
+ 
+        else if (lcs[i][j] == lcs[i - 1][j])
+            i--;
+ 
+        else if (lcs[i][j] - 1 == lcs[i - 1][j - 1])
+        {
+            st.push(i);
+            i--;
+            j--;
+        }
+    }
+ 
+    while (!st.empty())
+    {
+        cout << str1[st.top()];
+        st.pop();
+    }
     return 0;
 }
