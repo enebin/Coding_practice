@@ -1,12 +1,13 @@
 #include <stdio.h>
-#include <windows.h>
-#include <mmsystem.h>
-#pragma comment(lib, "winmm.lib");
+#define TRUE 1
+#define FALSE 0
 
 int main(void){
-    PlaySound("C:\\Users\\Lee\\Documents\\GitHub\\Coding_practice\\Baek\\Bradinsky.wav", NULL, SND_ASYNC | SND_FILENAME );
-    while(1){
-        Sleep(1000);
+    if ((2 != 2) == TRUE){
+        printf("True");
+    }
+    else {
+        printf("False");
     }
 
     return 0;
