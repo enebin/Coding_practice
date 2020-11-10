@@ -1,17 +1,30 @@
-import tensorflow as tf
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from time import sleep
 
-x = tf.ones((2, 2))
+url = "https://www.ilbe.com/view/11288691640"
 
-with tf.GradientTape() as t:
-    t.watch(x)
-    y = tf.reduce_sum(x)
-    print("It's y: ", y)
-    z = tf.multiply(y, y)
-    print("it's z: ", z)
+target_no = 5000
 
-    # 입력 텐서 x에 대한 z의 도함수
-    dz_dx = t.gradient(z, x)
-    print(dz_dx)
-    for i in [0, 1]:
-      for j in [0, 1]:
-        assert dz_dx[i][j].numpy() == 8.0
+# setup Driver|Chrome : 크롬드라이버를 사용하는 driver 생성
+driver = webdriver.Chrome('./chromedriver')
+driver.implicitly_wait(3) # 암묵적으로 웹 자원을 (최대) 3초 기다리기
+driver.get(url)
+
+while target_no > 0:
+    for idx in range(3, 12):
+
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        print("div.paginate:nth-child(2) > a:nth-child(%d)" % idx)
+        driver.find_element_by_css_selector("div.paginate:nth-child(2) > a:nth-child(%d)" % idx).click()
+
+    driver.find_element_by_css_selector("a.next:nth-child(12)").click()
+
+
+# .board-body > li:nth-child(8) > span:nth-child(2) > a:nth-child(1)
+# .board-body > li:nth-child(37) > span:nth-child(2) > a:nth-child(1)
+
+# div.paginate:nth-child(2) > a:nth-child(3)
+# div.paginate:nth-child(2) > a:nth-child(11)
+# a.next:nth-child(12)
